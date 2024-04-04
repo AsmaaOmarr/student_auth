@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mobile_assignment_1/constant.dart';
 import 'package:mobile_assignment_1/validation.dart';
 import '../signup_view.dart';
-import 'custom_button.dart';
-import 'custom_pass_textField.dart';
+import '../../../../../widgets/custom_button.dart';
+import '../../../../../widgets/custom_pass_textField.dart';
 import 'custom_spacer.dart';
-import 'custom_textfield.dart';
+import '../../../../../widgets/custom_textfield.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -56,6 +56,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   true,
                 ),
                 icon: Icons.email_rounded,
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 8),
               CustomPasswordTextField(

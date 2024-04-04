@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_assignment_1/features/auth/presentation/views/login_view.dart';
-import 'package:mobile_assignment_1/widgets/custom_button.dart';
-import 'package:mobile_assignment_1/widgets/custom_pass_textField.dart';
-import 'package:mobile_assignment_1/features/auth/presentation/views/widgets/custom_spacer.dart';
-import 'package:mobile_assignment_1/features/profile/persentation/views/profile_view.dart';
+import 'package:mobile_assignment_1/constant.dart';
 import 'package:mobile_assignment_1/validation.dart';
-import '../../../../../constant.dart';
-import '../../../../../widgets/Gender_selection.dart';
-import '../../../../../widgets/custom_dropdown.dart';
+import 'package:mobile_assignment_1/widgets/Gender_selection.dart';
+import 'package:mobile_assignment_1/widgets/custom_button.dart';
+import 'package:mobile_assignment_1/widgets/custom_dropdown.dart';
+import '../../../../../widgets/custom_pass_textField.dart';
 import '../../../../../widgets/custom_textfield.dart';
 
-class SignUpViewBody extends StatefulWidget {
-  const SignUpViewBody({super.key});
+class ProfileViewBody extends StatefulWidget {
+  const ProfileViewBody({super.key});
 
   @override
-  State<SignUpViewBody> createState() => _SignUpViewBodyState();
+  State<ProfileViewBody> createState() => _ProfileViewBodyState();
 }
 
-class _SignUpViewBodyState extends State<SignUpViewBody> {
+class _ProfileViewBodyState extends State<ProfileViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   String? email, password;
-  String? dropDownValue = "Select Level";
+  String? dropDownValue = "Level 4";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,12 +30,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 10),
-              Image.asset("assets/images/signup_image.png"),
+              Image.asset("assets/images/welcome.png"),
               const SizedBox(height: 10),
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "  SignUp",
+                  "  Profile",
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w800,
@@ -59,11 +56,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   "Name",
                 ),
                 icon: Icons.person_2_rounded,
+                controller: TextEditingController(text: "Asmaa Omar"),
               ),
               const SizedBox(height: 8),
               CustomTextField(
                 label: 'Email',
-                hint: 'studentID@stud.fci-cu.edu.eg',
+                hint: 'studentID',
                 onChanged: (value) {
                   email = value;
                   print(value);
@@ -74,6 +72,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ),
                 icon: Icons.email_rounded,
                 keyboardType: TextInputType.emailAddress,
+                controller:
+                    TextEditingController(text: "20201019@stud.fci-cu.edu.eg"),
               ),
               const SizedBox(height: 8),
               CustomTextField(
@@ -89,29 +89,30 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ),
                 icon: Icons.account_circle_rounded,
                 keyboardType: TextInputType.number,
+                controller: TextEditingController(text: "20201019"),
               ),
               const SizedBox(height: 8),
-              CustomPasswordTextField(
-                label: 'Password',
-                hint: 'Enter your password',
-                onChanged: (value) {
-                  password = value;
-                  print(password);
-                },
-                validator: (value) =>
-                    Validation.validatePassword(value, "Password"),
-              ),
-              const SizedBox(height: 8),
-              CustomPasswordTextField(
-                label: 'Confirm password',
-                hint: 'Rewrite your password',
-                onChanged: (value) {
-                  password = value;
-                  print(password);
-                },
-                validator: (value) => Validation.validateConfirmPassword(
-                    value, password, "Confirm Password"),
-              ),
+              // CustomPasswordTextField(
+              //   label: 'Password',
+              //   hint: 'Enter your password',
+              //   onChanged: (value) {
+              //     password = value;
+              //     print(password);
+              //   },
+              //   validator: (value) =>
+              //       Validation.validateRequired(value, "Password"),
+              // ),
+              // const SizedBox(height: 8),
+              // CustomPasswordTextField(
+              //   label: 'Confirm password',
+              //   hint: 'Rewrite your password',
+              //   onChanged: (value) {
+              //     password = value;
+              //     print(password);
+              //   },
+              //   validator: (value) =>
+              //       Validation.validateRequired(value, "Confirm Password"),
+              // ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -128,7 +129,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   const SizedBox(width: 16),
                   // initial like "female" or "male"
                   GenderSelection(
-                    initialSelection: "",
+                    initialSelection: "female",
                     onChanged: (String) {},
                   ),
                 ],
@@ -145,56 +146,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               ),
               const SizedBox(height: 38),
               CustomButton(
-                buttonName: "Sign Up",
+                buttonName: "Save",
                 onPressed: () {
                   // if (formKey.currentState != null &&
                   //     formKey.currentState!.validate()) {
                   //   print(email);
                   //   print(password);
                   // }
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileView(),
-                    ),
-                  );
                 },
-              ),
-              const SizedBox(height: 40),
-              const CustomSpacer(),
-              const SizedBox(height: 40),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Joined us before?",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade700,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: Constant.kFontFamily,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginView(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      " Log In",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Constant.kPink,
-                        fontFamily: Constant.kFontFamily,
-                      ),
-                    ),
-                  ),
-                ],
               ),
               const SizedBox(height: 40),
             ],

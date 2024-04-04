@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/text_formatter.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../../../../constant.dart';
+import '../constant.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -11,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.isObscure = false,
     required this.validator,
     required this.icon,
+    this.keyboardType = TextInputType.text, this.controller,
   });
 
   final String label;
@@ -19,6 +22,8 @@ class CustomTextField extends StatelessWidget {
   final bool isObscure;
   final String? Function(String?)? validator;
   final IconData? icon;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,8 @@ class CustomTextField extends StatelessWidget {
         vertical: 4,
       ),
       child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
         cursorColor: Constant.kLightPink,
         onChanged: onChanged,
         obscureText: isObscure,
