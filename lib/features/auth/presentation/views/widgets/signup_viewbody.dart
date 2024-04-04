@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_assignment_1/features/auth/presentation/views/login_view.dart';
+import 'package:mobile_assignment_1/models/user.dart';
+import 'package:mobile_assignment_1/shared_prefs.dart';
 import 'package:mobile_assignment_1/widgets/custom_button.dart';
 import 'package:mobile_assignment_1/widgets/custom_pass_textField.dart';
 import 'package:mobile_assignment_1/features/auth/presentation/views/widgets/custom_spacer.dart';
 import 'package:mobile_assignment_1/features/profile/persentation/views/profile_view.dart';
 import 'package:mobile_assignment_1/validation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../constant.dart';
 import '../../../../../widgets/Gender_selection.dart';
 import '../../../../../widgets/custom_dropdown.dart';
@@ -19,8 +22,10 @@ class SignUpViewBody extends StatefulWidget {
 
 class _SignUpViewBodyState extends State<SignUpViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
-  String? email, password;
-  String? dropDownValue = "Select Level";
+  String? fullName, email, password, studentID, gender, cPassword;
+  String? level = "Select Level";
+  bool showEmailExist = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,8 +56,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 label: 'Full name',
                 hint: 'Enter your full name',
                 onChanged: (value) {
-                  email = value;
-                  print(value);
+                  fullName = value;
+                  print(fullName);
                 },
                 validator: (value) => Validation.validateRequired(
                   value,
@@ -71,6 +76,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 validator: (value) => Validation.validateEmailSignUp(
                   value,
                   "Email",
+                  showEmailExist,
                 ),
                 icon: Icons.email_rounded,
                 keyboardType: TextInputType.emailAddress,
@@ -80,7 +86,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 label: 'Student ID',
                 hint: 'Enter your student Id',
                 onChanged: (value) {
-                  email = value;
+                  studentID = value;
                   print(value);
                 },
                 validator: (value) => Validation.validateRequired(
@@ -106,8 +112,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 label: 'Confirm password',
                 hint: 'Rewrite your password',
                 onChanged: (value) {
-                  password = value;
-                  print(password);
+                  cPassword = value;
+                  print(cPassword);
                 },
                 validator: (value) => Validation.validateConfirmPassword(
                     value, password, "Confirm Password"),
@@ -129,16 +135,19 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   // initial like "female" or "male"
                   GenderSelection(
                     initialSelection: "",
-                    onChanged: (String) {},
+                    onChanged: (String value) {
+                      gender = value;
+                      print(value);
+                    },
                   ),
                 ],
               ),
               const SizedBox(height: 12),
               CustomDropdownButton(
-                value: dropDownValue,
+                value: level,
                 onChanged: (value) {
                   setState(() {
-                    dropDownValue = value;
+                    level = value;
                   });
                   print(value);
                 },
@@ -146,18 +155,38 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               const SizedBox(height: 38),
               CustomButton(
                 buttonName: "Sign Up",
-                onPressed: () {
-                  // if (formKey.currentState != null &&
-                  //     formKey.currentState!.validate()) {
-                  //   print(email);
-                  //   print(password);
-                  // }
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileView(),
-                    ),
-                  );
+                onPressed: () async {
+                  bool isExist =
+                      await SharedPreferencesService.doesEmailExist(email!);
+                  print("Email is exist = $isExist");
+                  setState(() {
+                    isExist ? showEmailExist = true : showEmailExist = false;
+                  });
+                  if (formKey.currentState != null &&
+                      formKey.currentState!.validate() &&
+                      !isExist) {
+                    User user = User(
+                      name: fullName!,
+                      email: email!,
+                      studentId: studentID!,
+                      password: password!,
+                      gender: gender,
+                      level: level,
+                    );
+                    print(user);
+                    //await SharedPreferencesService.addUser(user);
+                    await SharedPreferencesService.removeUser(email!);
+                    // List<User> users =
+                    //     await SharedPreferencesService.getAllUsers();
+                    // print(users.length);
+
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const ProfileView(),
+                    //   ),
+                    // );
+                  }
                 },
               ),
               const SizedBox(height: 40),

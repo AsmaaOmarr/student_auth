@@ -3,6 +3,7 @@ import 'package:mobile_assignment_1/constant.dart';
 import 'package:mobile_assignment_1/features/splash_screen/presentation/views/splash_view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

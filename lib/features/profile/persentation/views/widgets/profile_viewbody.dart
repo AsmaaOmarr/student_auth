@@ -31,7 +31,11 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
             children: [
               const SizedBox(height: 10),
               Image.asset("assets/images/welcome.png"),
+
               const SizedBox(height: 10),
+              
+              const SizedBox(height: 10),
+
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -69,6 +73,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                 validator: (value) => Validation.validateEmailSignUp(
                   value,
                   "Email",
+                  false,
                 ),
                 icon: Icons.email_rounded,
                 keyboardType: TextInputType.emailAddress,

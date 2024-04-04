@@ -7,15 +7,19 @@ class Validation {
     // Add specific validations here if needed
     return null;
   }
+
   // validate email for sign up page
   // email shouldn't be exist before
-  static String? validateEmailSignUp(String? value, String fieldName) {
+  static String? validateEmailSignUp(
+      String? value, String fieldName, bool showEmailExist) {
     RegExp emailRegex = RegExp(r'^\d{8}@stud\.fci-cu\.edu\.eg$');
 
     if (value == null || value.isEmpty) {
       return '$fieldName is required';
     } else if (!emailRegex.hasMatch(value)) {
       return "Invalid Email";
+    } else if (showEmailExist) {
+      return "Email already exists";
     }
     return null;
   }
