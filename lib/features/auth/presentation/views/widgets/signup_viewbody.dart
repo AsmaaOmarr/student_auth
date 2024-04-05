@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_assignment_1/features/auth/presentation/views/login_view.dart';
 import 'package:mobile_assignment_1/models/user.dart';
-import 'package:mobile_assignment_1/snak_bar.dart';
-import 'package:mobile_assignment_1/shared_prefs.dart';
+import 'package:mobile_assignment_1/utils/snak_bar.dart';
+import 'package:mobile_assignment_1/utils/shared_prefs.dart';
 import 'package:mobile_assignment_1/widgets/custom_button.dart';
 import 'package:mobile_assignment_1/widgets/custom_pass_textField.dart';
 import 'package:mobile_assignment_1/features/auth/presentation/views/widgets/custom_spacer.dart';
 import 'package:mobile_assignment_1/features/profile/persentation/views/profile_view.dart';
-import 'package:mobile_assignment_1/validation.dart';
+import 'package:mobile_assignment_1/utils/validation.dart';
 import '../../../../../constant.dart';
 import '../../../../../widgets/Gender_selection.dart';
 import '../../../../../widgets/custom_dropdown.dart';

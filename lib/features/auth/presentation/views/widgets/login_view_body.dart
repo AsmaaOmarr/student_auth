@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_assignment_1/constant.dart';
 import 'package:mobile_assignment_1/features/profile/persentation/views/profile_view.dart';
-import 'package:mobile_assignment_1/snak_bar.dart';
-import 'package:mobile_assignment_1/shared_prefs.dart';
-import 'package:mobile_assignment_1/validation.dart';
+import 'package:mobile_assignment_1/utils/snak_bar.dart';
+import 'package:mobile_assignment_1/utils/shared_prefs.dart';
+import 'package:mobile_assignment_1/utils/validation.dart';
 import '../signup_view.dart';
 import '../../../../../widgets/custom_button.dart';
 import '../../../../../widgets/custom_pass_textField.dart';
