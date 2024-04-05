@@ -8,12 +8,14 @@ class CustomPasswordTextField extends StatefulWidget {
     required this.hint,
     required this.onChanged,
     this.validator,
+    this.controller,
   });
 
   final String label;
   final String hint;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   State<CustomPasswordTextField> createState() =>
@@ -30,6 +32,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         vertical: 4,
       ),
       child: TextFormField(
+        controller: widget.controller,
         cursorColor: Constant.kLightPink,
         onChanged: widget.onChanged,
         obscureText: obscureText,

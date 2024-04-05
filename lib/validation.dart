@@ -27,14 +27,14 @@ class Validation {
   //validate email for login page
   // email should be exist
   static String? validateEmailLogin(
-      String? value, String fieldName, bool emailExist) {
+      String? value, String fieldName, bool showEmailNotExist) {
     RegExp emailRegex = RegExp(r'^\d{8}@stud\.fci-cu\.edu\.eg$');
 
     if (value == null || value.isEmpty) {
       return '$fieldName is required';
     } else if (!emailRegex.hasMatch(value)) {
       return "Invalid Email";
-    } else if (!emailExist) {
+    } else if (showEmailNotExist) {
       return 'Email doesn\'t exists';
     }
     return null;

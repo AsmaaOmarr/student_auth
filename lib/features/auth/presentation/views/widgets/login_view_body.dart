@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_assignment_1/constant.dart';
+import 'package:mobile_assignment_1/features/profile/persentation/views/profile_view.dart';
+import 'package:mobile_assignment_1/snak_bar.dart';
+import 'package:mobile_assignment_1/shared_prefs.dart';
 import 'package:mobile_assignment_1/validation.dart';
 import '../signup_view.dart';
 import '../../../../../widgets/custom_button.dart';
@@ -17,6 +20,7 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   String? email, password;
+  bool showEmailNotExist = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,7 +57,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 validator: (value) => Validation.validateEmailLogin(
                   value,
                   "Email",
-                  true,
+                  showEmailNotExist,
                 ),
                 icon: Icons.email_rounded,
                 keyboardType: TextInputType.emailAddress,
@@ -85,11 +89,44 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               const SizedBox(height: 36),
               CustomButton(
                 buttonName: "Login",
-                onPressed: () {
+                onPressed: () async {
+                  bool isExist =
+                      await SharedPreferencesService.doesEmailExist(email!);
+                  print("Email is exist = $isExist");
+                  setState(() {
+                    isExist
+                        ? showEmailNotExist = false
+                        : showEmailNotExist = true;
+                  });
                   if (formKey.currentState != null &&
                       formKey.currentState!.validate()) {
                     print(email);
                     print(password);
+                    bool isEmailAndPasswordMatch =
+                        await SharedPreferencesService.doEmailAndPasswordMatch(
+                            email!, password!);
+                    print(isEmailAndPasswordMatch);
+                    if (isEmailAndPasswordMatch) {
+                      SnakBar.showSnakBar(
+                        context,
+                        "Login successfully",
+                        Colors.green,
+                        Icons.check_circle,
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileView(email: email!),
+                        ),
+                      );
+                    } else {
+                      SnakBar.showSnakBar(
+                        context,
+                        "Email and password don't match",
+                        Colors.red,
+                        Icons.error,
+                      );
+                    }
                   }
                 },
               ),

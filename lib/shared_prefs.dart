@@ -26,7 +26,9 @@ class SharedPreferencesService {
     if (userStrings == null) {
       return [];
     }
-    return userStrings.map((userString) => User.fromJson(json.decode(userString))).toList();
+    return userStrings
+        .map((userString) => User.fromJson(json.decode(userString)))
+        .toList();
   }
 
   // Check if the email exists in the list of users
@@ -36,15 +38,34 @@ class SharedPreferencesService {
   }
 
   // Check if the email and password match
-  static Future<bool> doEmailAndPasswordMatch(String email, String password) async {
+  static Future<bool> doEmailAndPasswordMatch(
+      String email, String password) async {
     List<User> userList = await getAllUsers();
-    return userList.any((user) => user.email == email && user.password == password);
+    return userList
+        .any((user) => user.email == email && user.password == password);
   }
 
   // Private method to save the list of users
   static Future<void> _saveUserList(List<User> userList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> userStrings = userList.map((user) => json.encode(user.toJson())).toList();
+    List<String> userStrings =
+        userList.map((user) => json.encode(user.toJson())).toList();
     await prefs.setStringList(_keyUserList, userStrings);
   }
+
+  // Method to get a user by email
+  static Future<User?> getUserByEmail(String email) async {
+    List<User> userList = await getAllUsers();
+    return userList.firstWhere((user) => user.email == email);
+  }
+
+  static Future<void> updateUserByEmail(String email, User updatedUser) async {
+    List<User> userList = await getAllUsers();
+    int index = userList.indexWhere((user) => user.email == email);
+    if (index != -1) {
+      userList[index] = updatedUser;
+      await _saveUserList(userList);
+    }
+  }
 }
+

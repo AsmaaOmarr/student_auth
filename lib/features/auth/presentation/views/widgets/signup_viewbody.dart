@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_assignment_1/features/auth/presentation/views/login_view.dart';
 import 'package:mobile_assignment_1/models/user.dart';
+import 'package:mobile_assignment_1/snak_bar.dart';
 import 'package:mobile_assignment_1/shared_prefs.dart';
 import 'package:mobile_assignment_1/widgets/custom_button.dart';
 import 'package:mobile_assignment_1/widgets/custom_pass_textField.dart';
 import 'package:mobile_assignment_1/features/auth/presentation/views/widgets/custom_spacer.dart';
 import 'package:mobile_assignment_1/features/profile/persentation/views/profile_view.dart';
 import 'package:mobile_assignment_1/validation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../constant.dart';
 import '../../../../../widgets/Gender_selection.dart';
 import '../../../../../widgets/custom_dropdown.dart';
@@ -174,18 +174,34 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                       level: level,
                     );
                     print(user);
-                    //await SharedPreferencesService.addUser(user);
-                    await SharedPreferencesService.removeUser(email!);
-                    // List<User> users =
+                    await SharedPreferencesService.addUser(user);
+                    //await SharedPreferencesService.removeUser(email!);
+                    List<User> users =
+                        await SharedPreferencesService.getAllUsers();
+                    print(users);
+                    SnakBar.showSnakBar(
+                      context,
+                      "Sing up success",
+                      Colors.green,
+                      Icons.check_circle,
+                    );
+                    // List<User> userss =
                     //     await SharedPreferencesService.getAllUsers();
-                    // print(users.length);
+                    // print(userss);
 
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const ProfileView(),
-                    //   ),
-                    // );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileView(email: email!),
+                      ),
+                    );
+                  } else {
+                    SnakBar.showSnakBar(
+                      context,
+                      "Sign up failure",
+                      Colors.red,
+                      Icons.error,
+                    );
                   }
                 },
               ),
