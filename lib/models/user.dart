@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 class User {
-  String? image;
+  Uint8List? image;
   String name;
   String? gender;
   String email;
@@ -23,8 +26,18 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
+    Uint8List? imageBytes;
+    if (json['image'] != null) {
+      if (json['image'] is List) {
+        // Convert the list to Uint8List if it's a List
+        imageBytes = Uint8List.fromList(json['image'].cast<int>());
+      } else if (json['image'] is String) {
+        // Handle the case where the image is provided as a base64 String
+        imageBytes = base64Decode(json['image']);
+      }
+    }
     return User(
-      image: json['image'],
+      image: imageBytes,
       name: json['name'],
       gender: json['gender'],
       email: json['email'],
@@ -45,5 +58,4 @@ class User {
       'password': password,
     };
   }
-
 }

@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Constant.kPink),
         useMaterial3: true,
+        bottomSheetTheme: const BottomSheetThemeData(
+          surfaceTintColor: Colors.white,
+        ),
       ),
       home: const SplashView(),
     );

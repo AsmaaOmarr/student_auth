@@ -7,7 +7,6 @@ import 'package:mobile_assignment_1/utils/snak_bar.dart';
 import 'package:mobile_assignment_1/utils/shared_prefs.dart';
 import 'package:mobile_assignment_1/utils/validation.dart';
 import 'package:mobile_assignment_1/widgets/Gender_selection.dart';
-import 'package:mobile_assignment_1/widgets/custom_button.dart';
 import 'package:mobile_assignment_1/widgets/custom_dropdown.dart';
 import '../../../../../widgets/custom_pass_textField.dart';
 import '../../../../../widgets/custom_textfield.dart';
@@ -67,7 +66,13 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                     //   width: 200,
                     // ),
                     const SizedBox(height: 10),
-                    ProfileImage(),
+                    ProfileImage(
+                      onImageSelected: (selectedImage) {
+                        user!.image = selectedImage;
+                        setState(() => isButtonEnabled = true);
+                      },
+                      userImage: user!.image,
+                    ),
                     const SizedBox(height: 10),
                     const Align(
                       alignment: Alignment.centerLeft,
@@ -255,4 +260,3 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
     );
   }
 }
-
