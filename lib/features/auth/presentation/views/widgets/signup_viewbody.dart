@@ -156,12 +156,15 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               CustomButton(
                 buttonName: "Sign Up",
                 onPressed: () async {
-                  bool isExist =
-                      await SharedPreferencesService.doesEmailExist(email!);
-                  print("Email is exist = $isExist");
-                  setState(() {
-                    isExist ? showEmailExist = true : showEmailExist = false;
-                  });
+                  bool isExist = false;
+                  if (email != null) {
+                    isExist =
+                        await SharedPreferencesService.doesEmailExist(email!);
+                    print("Email is exist = $isExist");
+                    setState(() {
+                      isExist ? showEmailExist = true : showEmailExist = false;
+                    });
+                  }
                   if (formKey.currentState != null &&
                       formKey.currentState!.validate() &&
                       !isExist) {

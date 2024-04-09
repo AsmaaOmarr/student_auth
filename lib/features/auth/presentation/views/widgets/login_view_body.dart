@@ -90,14 +90,17 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               CustomButton(
                 buttonName: "Login",
                 onPressed: () async {
-                  bool isExist =
-                      await SharedPreferencesService.doesEmailExist(email!);
-                  print("Email is exist = $isExist");
-                  setState(() {
-                    isExist
-                        ? showEmailNotExist = false
-                        : showEmailNotExist = true;
-                  });
+                  bool isExist = true;
+                  if (email != null) {
+                    bool isExist =
+                        await SharedPreferencesService.doesEmailExist(email!);
+                    print("Email is exist = $isExist");
+                    setState(() {
+                      isExist
+                          ? showEmailNotExist = false
+                          : showEmailNotExist = true;
+                    });
+                  }
                   if (formKey.currentState != null &&
                       formKey.currentState!.validate()) {
                     print(email);
