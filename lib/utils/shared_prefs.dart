@@ -6,9 +6,10 @@ class SharedPreferencesService {
 
   static const String _keyUserList = 'userList';
 
-  // Private method to save the list of users
+  // Save the list of users
   static Future<void> _saveUserList(List<User> userList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    //obj->Map->jsonString->list of strings
     List<String> userStrings =
         userList.map((user) => json.encode(user.toJson())).toList();
     await prefs.setStringList(_keyUserList, userStrings);
@@ -21,6 +22,7 @@ class SharedPreferencesService {
     if (userStrings == null) {
       return [];
     }
+    //jsonString->Map->obj->list of users
     return userStrings
         .map((userString) => User.fromJson(json.decode(userString)))
         .toList();
