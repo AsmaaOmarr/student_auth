@@ -1,4 +1,4 @@
-# mobile_assignment_1
+# student_authentication app
 
 A new Flutter project.
 
