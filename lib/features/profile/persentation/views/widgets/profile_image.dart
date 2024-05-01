@@ -48,7 +48,7 @@ class _ProfileImageState extends State<ProfileImage> {
               child: Center(
                 child: IconButton(
                   onPressed: () {
-                    showBottomSheet(
+                    showModalBottomSheet(
                         backgroundColor: CupertinoColors.white,
                         elevation: 5,
                         context: context,
