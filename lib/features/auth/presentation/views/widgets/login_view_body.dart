@@ -92,7 +92,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onPressed: () async {
                   bool isExist = true;
                   if (email != null) {
-                    bool isExist =
+                    isExist =
                         await SharedPreferencesService.doesEmailExist(email!);
                     print("Email is exist = $isExist");
                     setState(() {
