@@ -196,24 +196,6 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       },
                     ),
                     const SizedBox(height: 38),
-                    // CustomButton(
-                    //   buttonName: "Save",
-                    //   onPressed: () async {
-                    //     bool isExist =
-                    //         await SharedPreferencesService.doesEmailExist(user.email);
-                    //     print("Email is exist = $isExist");
-                    //     setState(() {
-                    //       isExist && widget.email != user.email
-                    //           ? showEmailExist = true
-                    //           : showEmailExist = false;
-                    //     });
-                    //     if (formKey.currentState != null &&
-                    //         formKey.currentState!.validate() &&
-                    //         !isExist) {
-                    //       print(user);
-                    //     }
-                    //   },
-                    // ),
                     CustomColorChangingButton(
                       isButtonEnabled: isButtonEnabled,
                       onPressed: () async {
