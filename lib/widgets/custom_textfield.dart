@@ -10,7 +10,8 @@ class CustomTextField extends StatelessWidget {
     this.isObscure = false,
     required this.validator,
     required this.icon,
-    this.keyboardType = TextInputType.text, this.controller,
+    this.keyboardType = TextInputType.text,
+    this.controller,
   });
 
   final String label;
@@ -30,7 +31,7 @@ class CustomTextField extends StatelessWidget {
         vertical: 4,
       ),
       child: TextFormField(
-        //autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: controller,
         keyboardType: keyboardType,
         cursorColor: Constant.kLightPink,
